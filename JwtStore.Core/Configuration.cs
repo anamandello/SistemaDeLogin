@@ -14,8 +14,8 @@ public static class Configuration
 
     public class EmailConfiguration
     {
-        public string DefaultFromEmail { get; set; } = "test@balta.io";
-        public string DefaultFromName { get; set; } = "balta.io";
+        public string DefaultFromEmail { get; set; } = "";
+        public string DefaultFromName { get; set; } = "";
     }
 
     public class SendGridConfiguration
