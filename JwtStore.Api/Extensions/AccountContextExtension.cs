@@ -19,13 +19,13 @@ namespace JwtStore.Api.Extensions
 
             #endregion
 
-            //#region Authenticate
+            #region Authenticate
 
-            //builder.Services.AddTransient<
-            //    JwtStore.Core.Contexts.AccountContext.UseCases.Authenticate.Contracts.IRepository,
-            //    JwtStore.Infra.Contexts.AccountContext.UseCases.Authenticate.Repository>();
+            builder.Services.AddTransient<
+                JwtStore.Core.Contexts.AccountContext.UseCases.Authenticate.Contracts.IRepository,
+                JwtStore.Infra.Contexts.AccountContext.UseCases.Authenticate.Repository>();
 
-            //#endregion
+            #endregion
         }
 
         public static void MapAccountEndpoints(this WebApplication app)
@@ -46,26 +46,26 @@ namespace JwtStore.Api.Extensions
 
             #endregion
 
-        //    #region Authenticate
+            #region Authenticate
 
-        //    app.MapPost("api/v1/authenticate", async (
-        //        JwtStore.Core.Contexts.AccountContext.UseCases.Authenticate.Request request,
-        //        IRequestHandler<
-        //            JwtStore.Core.Contexts.AccountContext.UseCases.Authenticate.Request,
-        //            JwtStore.Core.Contexts.AccountContext.UseCases.Authenticate.Response> handler) =>
-        //    {
-        //        var result = await handler.Handle(request, new CancellationToken());
-        //        if (!result.IsSuccess)
-        //            return Results.Json(result, statusCode: result.Status);
+            app.MapPost("api/v1/authenticate", async (
+                JwtStore.Core.Contexts.AccountContext.UseCases.Authenticate.Request request,
+                IRequestHandler<
+                    JwtStore.Core.Contexts.AccountContext.UseCases.Authenticate.Request,
+                    JwtStore.Core.Contexts.AccountContext.UseCases.Authenticate.Response> handler) =>
+            {
+                var result = await handler.Handle(request, new CancellationToken());
+                if (!result.IsSuccess)
+                    return Results.Json(result, statusCode: result.Status);
 
-        //        if (result.Data is null)
-        //            return Results.Json(result, statusCode: 500);
+                if (result.Data is null)
+                    return Results.Json(result, statusCode: 500);
 
-        //        result.Data.Token = JwtExtension.Generate(result.Data);
-        //        return Results.Ok(result);
-        //    });
+                result.Data.Token = JwtExtension.Generate(result.Data);
+                return Results.Ok(result);
+            });
 
-        //    #endregion
+            #endregion
         }
 
     }
